@@ -1,0 +1,94 @@
+/* DEFAULT STYLES */
+
+body {
+  background-color: #fcf9f4;
+}
+
+:root {
+  --bs-primary: #9a8058;
+  --bs-secondary: #51381f;
+  --bs-tertiary: #efc739;
+  --bs-dark: #0d0a19;
+  --bs-white: #fcf9f4;
+}
+
+.font-text {
+  font-family: "poppins", sans-serif;
+}
+
+.font-heading {
+  font-family: "cooper-black-std", serif;
+}
+
+.row {
+  --bs-gutter-x: 0rem;
+}
+
+/* NAVIGATION STYLES */
+.navbar {
+  transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled {
+  background-color: #51381f !important;
+}
+
+.navbar-nav {
+  --bs-nav-link-padding-y: 0.2rem;
+}
+
+.nav-link {
+  color: var(--bs-white);
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link.active {
+  color: var(--bs-tertiary) !important;
+  border-bottom: 2px solid var(--bs-tertiary);
+}
+
+.nav-link:hover:not(.active) {
+  color: var(--bs-tertiary) !important;
+  border-bottom: 2px solid var(--bs-tertiary);
+}
+
+/* Home page - Hero section */
+.hero {
+  background: url("../img/turkey_home_hero.jpg") no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  color: #fff;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1); /* dark overlay */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.skew-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: #fcf9f4;
+  clip-path: polygon(0 0, 100% 100%, 0% 100%);
+}
+
+.btn-outline-light {
+  border-width: 2px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.btn-outline-light:hover {
+  background-color: var(--bs-tertiary);
+  color: var(--bs-secondary);
+  border-color: var(--bs-tertiary);
+}
