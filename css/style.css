@@ -56,6 +56,7 @@ body {
 .hero {
   background: url("../img/turkey_home_hero.jpg") no-repeat center center;
   background-size: cover;
+  position: relative;
   height: 100vh;
   color: #fff;
 }
@@ -65,20 +66,18 @@ body {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.1); /* dark overlay */
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
+  pointer-events: none;
 }
 
 .skew-bottom {
   position: absolute;
   bottom: 0;
-  width: 100%;
-  height: 100px;
-  background: #fcf9f4;
-  clip-path: polygon(0 0, 100% 100%, 0% 100%);
+  left: 0;
+  width: 100vw;
+  height: 160px;
+  background: var(--bs-white);
+  clip-path: polygon(0 0, 50% 100%, 100% 0, 100% 100%, 0 100%);
+  z-index: 1;
 }
 
 .btn-outline-light {
