@@ -2,6 +2,7 @@
 
 body {
   background-color: #fcf9f4;
+  overflow-x: hidden;
 }
 
 :root {
@@ -26,7 +27,7 @@ body {
 
 /* NAVIGATION STYLES */
 .navbar {
-  transition: background-color 0.3s ease;
+  transition: all 0.5s;
 }
 
 .navbar.scrolled {
@@ -52,21 +53,41 @@ body {
   border-bottom: 2px solid var(--bs-tertiary);
 }
 
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.btn-gold,
+.btn-gold:focus,
+.btn-gold:active,
+.btn-gold:visited,
+.btn-gold:hover {
+  background-color: var(--bs-tertiary) !important;
+  color: var(--bs-secondary) !important;
+  border-color: var(--bs-tertiary) !important;
+}
+
+@media (max-width: 991.98px) {
+  .navbar {
+    background-color: #51381f !important;
+  }
+}
+
 /* Home page - Hero section */
 .hero {
   background: url("../img/turkey_home_hero.jpg") no-repeat center center;
   background-size: cover;
   position: relative;
   height: 100vh;
-  color: #fff;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.1); /* dark overlay */
-  pointer-events: none;
+  color: var(--bs-white);
 }
 
 .skew-bottom {
