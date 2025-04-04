@@ -1,4 +1,4 @@
-// NAVIGATION SCROLL
+// CHANGE NAVBAR BG COLOUR ON HOME PAGE WHEN SCROLL DOWN
 const navbar = document.querySelector(".navbar");
 
 window.addEventListener("scroll", () => {

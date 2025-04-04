@@ -5,12 +5,16 @@ body {
   overflow-x: hidden;
 }
 
+p {
+  font-family: "poppins", sans-serif;
+}
+
 :root {
   --bs-primary: #9a8058;
   --bs-secondary: #51381f;
   --bs-tertiary: #efc739;
   --bs-dark: #0d0a19;
-  --bs-white: #fcf9f4;
+  --bs-white: #fcfcfc;
 }
 
 .font-text {
@@ -21,8 +25,31 @@ body {
   font-family: "cooper-black-std", serif;
 }
 
-.row {
-  --bs-gutter-x: 0rem;
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+.text-secondary {
+  color: var(--bs-secondary) !important;
+}
+
+.text-tertiary {
+  color: var(--bs-tertiary) !important;
+}
+.text-dark {
+  color: var(--bs-dark) !important;
+}
+.text-white {
+  color: var(--bs-white) !important;
+}
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+.bg-secondary {
+  background-color: var(--bs-secondary) !important;
+}
+
+.min-h-270 {
+  min-height: 270px;
 }
 
 /* NAVIGATION STYLES */
@@ -111,4 +138,15 @@ body {
   background-color: var(--bs-tertiary);
   color: var(--bs-secondary);
   border-color: var(--bs-tertiary);
+}
+
+/* Home page - Why Choose Maryfield Turkeys Section */
+.w-card-responsive {
+  width: 75%;
+}
+
+@media (min-width: 992px) {
+  .w-card-responsive {
+    width: 100%;
+  }
 }
