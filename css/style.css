@@ -52,6 +52,10 @@ p {
   min-height: 270px;
 }
 
+.letter-spacing-10 {
+  letter-spacing: 3.2px;
+}
+
 /* NAVIGATION STYLES */
 .navbar {
   transition: all 0.5s;
@@ -117,6 +121,28 @@ p {
   color: var(--bs-white);
 }
 
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 767.98px) {
+  .hero {
+    background-position: 25% center;
+  }
+}
+
 .skew-bottom {
   position: absolute;
   bottom: 0;
@@ -145,11 +171,40 @@ p {
   box-shadow: 4px 4px 4.4px 1px rgba(0, 0, 0, 0.25) !important;
 }
 .w-card-responsive {
-  width: 75%;
+  width: 85%;
 }
 
 @media (min-width: 992px) {
   .w-card-responsive {
     width: 100%;
   }
+}
+
+/* Home page - Location Banner Section */
+.location-banner {
+  background: url("../img/deeside_banner.jpg") no-repeat center center;
+  background-size: cover;
+  height: 500px;
+  position: relative;
+  padding: 0;
+}
+
+.location-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 0;
+}
+
+.location-banner > * {
+  position: relative;
+  z-index: 1;
+}
+
+.location-banner p {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
