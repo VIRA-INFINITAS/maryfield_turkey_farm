@@ -180,8 +180,8 @@ p {
   }
 }
 
-/* Home page - Location Banner Section */
-.location-banner {
+/* Home page - Deeside Banner Section */
+.deeside-banner {
   background: url("../img/deeside_banner.jpg") no-repeat center center;
   background-size: cover;
   height: 500px;
@@ -189,7 +189,7 @@ p {
   padding: 0;
 }
 
-.location-banner::before {
+.deeside-banner::before {
   content: "";
   position: absolute;
   top: 0;
@@ -200,11 +200,25 @@ p {
   z-index: 0;
 }
 
-.location-banner > * {
+.deeside-banner > * {
   position: relative;
   z-index: 1;
 }
 
-.location-banner p {
+.deeside-banner p {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Home page - How to Order Section */
+.btn-outline-brown {
+  border-width: 2px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-color: var(--bs-secondary);
+  color: var(--bs-secondary);
+}
+.btn-outline-brown:hover {
+  background-color: var(--bs-tertiary);
+  color: var(--bs-secondary);
+  border-color: var(--bs-tertiary);
 }
