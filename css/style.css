@@ -14,7 +14,7 @@ p {
   --bs-secondary: #51381f;
   --bs-tertiary: #efc739;
   --bs-dark: #0d0a19;
-  --bs-white: #fcfcfc;
+  --bs-white: #fcf9f4;
 }
 
 .font-text {
@@ -141,6 +141,9 @@ p {
 }
 
 /* Home page - Why Choose Maryfield Turkeys Section */
+.shadow {
+  box-shadow: 4px 4px 4.4px 1px rgba(0, 0, 0, 0.25) !important;
+}
 .w-card-responsive {
   width: 75%;
 }
