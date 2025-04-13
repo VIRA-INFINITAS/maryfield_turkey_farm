@@ -7,6 +7,7 @@ body {
 
 p {
   font-family: "poppins", sans-serif;
+  font-size: 18px;
 }
 
 :root {
@@ -56,9 +57,17 @@ p {
   letter-spacing: 3.2px;
 }
 
+.fs-7 {
+  font-size: 16px;
+}
+
 /* NAVIGATION STYLES */
 .navbar {
   transition: transform 0.4s ease, background-color 1s ease;
+}
+
+.not-home-navbar {
+  background-color: #51381f !important;
 }
 
 .navbar.scrolled {
