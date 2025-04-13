@@ -222,3 +222,14 @@ p {
   color: var(--bs-secondary);
   border-color: var(--bs-tertiary);
 }
+
+/* Home page - Promo Section */
+.promo-banner .promo-text {
+  background: linear-gradient(
+    180deg,
+    #9a8058 0%,
+    #866c48 32.5%,
+    #6a5032 62%,
+    #51381f 100%
+  );
+}
