@@ -247,3 +247,22 @@ p {
     #51381f 100%
   );
 }
+
+/* Our Turkey page - Divider styles */
+/* SKEW CLOCKWISE */
+.skew-cc {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  left: 0px;
+  background: linear-gradient(to right bottom, #9a8058 49%, #fcf9f4 50%),
+    linear-gradient(-50deg, #ffffff 16px, #000 0);
+}
+/* SKEW COUNTER CLOCKWISE */
+.skew-c {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  left: 0px;
+  background: linear-gradient(to left bottom, #fcf9f4 49%, #9a8058 50%);
+}
