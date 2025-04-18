@@ -14,8 +14,10 @@ p {
   --bs-primary: #9a8058;
   --bs-secondary: #51381f;
   --bs-tertiary: #efc739;
+  --bs-info: #79634c;
   --bs-dark: #0d0a19;
   --bs-white: #fcf9f4;
+  --bs-light: #e9decf;
 }
 
 .font-text {
@@ -29,6 +31,7 @@ p {
 .text-primary {
   color: var(--bs-primary) !important;
 }
+
 .text-secondary {
   color: var(--bs-secondary) !important;
 }
@@ -36,20 +39,33 @@ p {
 .text-tertiary {
   color: var(--bs-tertiary) !important;
 }
+
 .text-dark {
   color: var(--bs-dark) !important;
 }
+
 .text-white {
   color: var(--bs-white) !important;
 }
+
+.text-info {
+  color: var(--bs-info) !important;
+}
+
 .bg-primary {
   background-color: var(--bs-primary) !important;
 }
+
 .bg-secondary {
   background-color: var(--bs-secondary) !important;
 }
+
 .bg-white {
   background-color: var(--bs-white) !important;
+}
+
+.bg-light {
+  background-color: var(--bs-light) !important;
 }
 
 .min-h-270 {
@@ -187,6 +203,7 @@ p {
 .shadow {
   box-shadow: 4px 4px 4.4px 1px rgba(0, 0, 0, 0.25) !important;
 }
+
 .w-card-responsive {
   width: 85%;
 }
@@ -234,6 +251,7 @@ p {
   border-color: var(--bs-secondary);
   color: var(--bs-secondary);
 }
+
 .btn-outline-brown:hover {
   background-color: var(--bs-tertiary);
   color: var(--bs-secondary);
@@ -297,4 +315,21 @@ p {
   min-height: 200px;
   max-height: 350px;
   width: auto;
+}
+
+/* Contact Us page - Form styles */
+.form-control::placeholder {
+  font-style: italic;
+  color: var(--bs-info);
+}
+
+.btn-submit {
+  letter-spacing: 0.5px;
+  background-color: var(--bs-secondary);
+}
+
+.btn-submit:hover {
+  background-color: var(--bs-tertiary);
+  color: var(--bs-secondary);
+  border-color: var(--bs-tertiary);
 }
