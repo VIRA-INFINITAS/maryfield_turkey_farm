@@ -241,7 +241,7 @@ p {
 }
 
 /* Home page - Promo Section */
-.promo-banner .promo-text {
+.promo-banner {
   background: linear-gradient(
     180deg,
     #9a8058 0%,
@@ -290,4 +290,11 @@ p {
 #our_turkeys {
   background: url("../img/turkeys-background.jpg") no-repeat center center fixed;
   background-size: cover;
+}
+
+/* Our Turkey page - Product Card styles */
+.promo-box-img {
+  min-height: 200px;
+  max-height: 350px;
+  width: auto;
 }
