@@ -1,24 +1,20 @@
 // CHANGE NAVBAR BG COLOUR ON HOME PAGE WHEN SCROLL DOWN + HIDE ON SCROLL DOWN (DESKTOP ONLY)
 
-const navbar = document.querySelector(".navbar");
+$(function () {
+  const $navbar = $(".navbar");
+  let lastScrollTop = 0;
 
-let lastScrollTop = 0;
+  $(window).on("scroll", function () {
+    const currentScroll = $(this).scrollTop();
 
-window.addEventListener("scroll", () => {
-  const currentScroll = window.scrollY;
+    if (currentScroll <= 10) {
+      $navbar.removeClass("scrolled navbar-hidden");
+    } else if (currentScroll > lastScrollTop) {
+      $navbar.addClass("navbar-hidden");
+    } else {
+      $navbar.removeClass("navbar-hidden").addClass("scrolled");
+    }
 
-  if (currentScroll <= 10) {
-    // When at top – transparent navbar, visible
-    navbar.classList.remove("scrolled");
-    navbar.classList.remove("navbar-hidden");
-  } else if (currentScroll > lastScrollTop) {
-    // Scrolling down
-    navbar.classList.add("navbar-hidden");
-  } else {
-    // Scrolling up
-    navbar.classList.remove("navbar-hidden");
-    navbar.classList.add("scrolled");
-  }
-
-  lastScrollTop = currentScroll;
+    lastScrollTop = currentScroll;
+  });
 });
