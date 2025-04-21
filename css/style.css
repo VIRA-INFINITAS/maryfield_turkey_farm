@@ -306,8 +306,15 @@ p {
 }
 
 #our_turkeys {
-  background: url("../img/turkeys-background.jpg") no-repeat center center fixed;
+  background: url("../img/turkeys-background.jpg") no-repeat center center;
   background-size: cover;
+  background-attachment: scroll;
+}
+
+@media (min-width: 992px) {
+  #our_turkeys {
+    background-attachment: fixed;
+  }
 }
 
 /* Our Turkey page - Product Card styles */
