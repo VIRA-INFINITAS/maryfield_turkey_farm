@@ -345,3 +345,33 @@ p {
   color: var(--bs-secondary);
   border-color: var(--bs-tertiary);
 }
+
+/* Contact Us page - FAQ styles */
+.accordion-button {
+  color: #fcf9f4;
+  background-color: #9a8058;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #fcf9f4;
+  background-color: #9a8058;
+}
+
+.accordion {
+  --bs-accordion-color: #51381f;
+  --bs-accordion-bg: #e9decf;
+}
+
+.accordion-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.accordion-button::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23FCF9F4' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23FCF9F4' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  transform: rotate(-180deg);
+}
