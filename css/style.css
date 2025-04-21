@@ -324,6 +324,12 @@ p {
 }
 
 /* Contact Us page - Form styles */
+.form-control:focus,
+.form-select:valid:focus {
+  border: 2px solid #51381f;
+  box-shadow: 0 0 5px #51381f;
+}
+
 .form-control::placeholder {
   font-style: italic;
   color: var(--bs-info);
