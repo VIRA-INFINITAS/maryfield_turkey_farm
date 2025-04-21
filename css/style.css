@@ -307,7 +307,6 @@ p {
 
 #our_turkeys {
   background: url("../img/turkeys-background.jpg") no-repeat center center;
-  background-size: cover;
   background-attachment: scroll;
 }
 
