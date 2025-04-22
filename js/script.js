@@ -18,3 +18,99 @@ $(function () {
     lastScrollTop = currentScroll;
   });
 });
+
+function calculateTotal() {
+  let total = 0;
+
+  document.querySelectorAll(".turkey-group").forEach((group) => {
+    let select = group.querySelector(".turkey-select");
+    let quantity = parseInt(group.querySelector(".turkey-quantity").value) || 0;
+    let price =
+      parseFloat(select.selectedOptions[0].getAttribute("data-price")) || 0;
+    total += quantity * price;
+  });
+
+  document.querySelectorAll(".bacon-group").forEach((group) => {
+    let select = group.querySelector(".bacon-select");
+    let quantity = parseInt(group.querySelector(".bacon-quantity").value) || 0;
+    let price =
+      parseFloat(select.selectedOptions[0].getAttribute("data-price")) || 0;
+    total += quantity * price;
+  });
+
+  document.querySelectorAll(".vegetable-group").forEach((group) => {
+    let select = group.querySelector(".vegetable-select");
+    let quantity =
+      parseInt(group.querySelector(".vegetable-quantity").value) || 0;
+    let price =
+      parseFloat(select.selectedOptions[0].getAttribute("data-price")) || 0;
+    total += quantity * price;
+  });
+
+  document.querySelectorAll(".otherItems-group").forEach((group) => {
+    let select = group.querySelector(".otherItems-select");
+    let quantity =
+      parseInt(group.querySelector(".otherItems-quantity").value) || 0;
+    let price =
+      parseFloat(select.selectedOptions[0].getAttribute("data-price")) || 0;
+    total += quantity * price;
+  });
+
+  document.getElementById("totalPrice").innerText = total.toFixed(2);
+  document.getElementById("totalPriceInput").value = total.toFixed(2);
+}
+
+function addTurkey() {
+  const section = document.getElementById("turkeySection");
+  const clone = section.firstElementChild.cloneNode(true);
+  clone.querySelector("select").selectedIndex = 0;
+  clone.querySelector("input").value = "";
+  section.appendChild(clone);
+  updateEventListeners();
+  calculateTotal();
+}
+
+function addBacon() {
+  const section = document.getElementById("baconSection");
+  const clone = section.firstElementChild.cloneNode(true);
+  clone.querySelector("select").selectedIndex = 0;
+  clone.querySelector("input").value = "";
+  section.appendChild(clone);
+  updateEventListeners();
+  calculateTotal();
+}
+
+function addVegetable() {
+  const section = document.getElementById("vegetableSection");
+  const clone = section.firstElementChild.cloneNode(true);
+  clone.querySelector("select").selectedIndex = 0;
+  clone.querySelector("input").value = "";
+  section.appendChild(clone);
+  updateEventListeners();
+  calculateTotal();
+}
+
+function addOtherItems() {
+  const section = document.getElementById("otherItemsSection");
+  const clone = section.firstElementChild.cloneNode(true);
+  clone.querySelector("select").selectedIndex = 0;
+  clone.querySelector("input").value = "";
+  section.appendChild(clone);
+  updateEventListeners();
+  calculateTotal();
+}
+
+// Re-add event listeners for newly added elements
+function updateEventListeners() {
+  document
+    .querySelectorAll(
+      ".turkey-select, .turkey-quantity, .bacon-select, .bacon-quantity, .vegetable-select, .vegetable-quantity, .otherItems-select, .otherItems-quantity"
+    )
+    .forEach((element) => {
+      element.removeEventListener("change", calculateTotal); // prevent duplicates
+      element.addEventListener("change", calculateTotal);
+    });
+}
+
+// Initial Event Listeners
+updateEventListeners();
