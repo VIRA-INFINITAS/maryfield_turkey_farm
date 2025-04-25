@@ -375,3 +375,21 @@ p {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23FCF9F4' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
   transform: rotate(-180deg);
 }
+
+/* Recipes - Hero section */
+.hero-recipes {
+  background: url("../img/roasted_turkey_promo.jpg") no-repeat center center;
+  background-size: cover;
+  position: relative;
+  height: 50vh;
+  color: var(--bs-white);
+}
+
+.tips-bg {
+  min-height: 250px;
+  max-height: 300px;
+}
+
+.text-darker p {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
