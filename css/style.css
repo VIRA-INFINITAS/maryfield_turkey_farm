@@ -405,3 +405,8 @@ p {
   pointer-events: none;
   opacity: 0.9;
 }
+
+/* 404 Page Styles */
+.turkey-404 {
+  height: 35vh;
+}
