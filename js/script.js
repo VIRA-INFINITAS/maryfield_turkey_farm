@@ -1,3 +1,14 @@
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.innerWidth < 992) {
+    // Remove AOS attributes on small screens
+    document.querySelectorAll("[data-aos]").forEach(function (element) {
+      element.removeAttribute("data-aos");
+      element.removeAttribute("data-aos-delay");
+      element.removeAttribute("data-aos-easing");
+      element.removeAttribute("data-aos-duration");
+    });
+  }
+});
 // CHANGE NAVBAR BG COLOUR ON HOME PAGE WHEN SCROLL DOWN + HIDE ON SCROLL DOWN (DESKTOP ONLY)
 
 $(function () {
@@ -19,101 +30,39 @@ $(function () {
   });
 });
 
-// function calculateTotal() {
-//   let total = 0;
+//This script will prevent forms to be submitted if hCaptcha in not completed. It will show an alert for user to complete it.
+// Choose all forms with ID 'contactForm' or 'orderForm'
+const forms = ["contactForm", "orderForm"];
+// Loop for each form
+forms.forEach((formId) => {
+  const form = document.getElementById(formId);
+  if (form) {
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
 
-//   document.querySelectorAll(".turkey-group").forEach((group) => {
-//     let select = group.querySelector(".turkey-select");
-//     let quantity = parseInt(group.querySelector(".turkey-quantity").value) || 0;
-//     let price =
-//       parseFloat(select.selectedOptions[0].getAttribute("data-price")) || 0;
-//     total += quantity * price;
-//   });
+      const formData = new FormData(form);
+      const action = form.action;
 
-//   document.querySelectorAll(".bacon-group").forEach((group) => {
-//     let select = group.querySelector(".bacon-select");
-//     let quantity = parseInt(group.querySelector(".bacon-quantity").value) || 0;
-//     let price =
-//       parseFloat(select.selectedOptions[0].getAttribute("data-price")) || 0;
-//     total += quantity * price;
-//   });
-
-//   document.querySelectorAll(".vegetable-group").forEach((group) => {
-//     let select = group.querySelector(".vegetable-select");
-//     let quantity =
-//       parseInt(group.querySelector(".vegetable-quantity").value) || 0;
-//     let price =
-//       parseFloat(select.selectedOptions[0].getAttribute("data-price")) || 0;
-//     total += quantity * price;
-//   });
-
-//   document.querySelectorAll(".otherItems-group").forEach((group) => {
-//     let select = group.querySelector(".otherItems-select");
-//     let quantity =
-//       parseInt(group.querySelector(".otherItems-quantity").value) || 0;
-//     let price =
-//       parseFloat(select.selectedOptions[0].getAttribute("data-price")) || 0;
-//     total += quantity * price;
-//   });
-
-//   document.getElementById("totalPrice").innerText = total.toFixed(2);
-//   document.getElementById("totalPriceInput").value = total.toFixed(2);
-// }
-
-// function addTurkey() {
-//   const section = document.getElementById("turkeySection");
-//   const clone = section.firstElementChild.cloneNode(true);
-//   clone.querySelector("select").selectedIndex = 0;
-//   clone.querySelector("input").value = "";
-//   section.appendChild(clone);
-//   updateEventListeners();
-//   calculateTotal();
-// }
-
-// function addBacon() {
-//   const section = document.getElementById("baconSection");
-//   const clone = section.firstElementChild.cloneNode(true);
-//   clone.querySelector("select").selectedIndex = 0;
-//   clone.querySelector("input").value = "";
-//   section.appendChild(clone);
-//   updateEventListeners();
-//   calculateTotal();
-// }
-
-// function addVegetable() {
-//   const section = document.getElementById("vegetableSection");
-//   const clone = section.firstElementChild.cloneNode(true);
-//   clone.querySelector("select").selectedIndex = 0;
-//   clone.querySelector("input").value = "";
-//   section.appendChild(clone);
-//   updateEventListeners();
-//   calculateTotal();
-// }
-
-// function addOtherItems() {
-//   const section = document.getElementById("otherItemsSection");
-//   const clone = section.firstElementChild.cloneNode(true);
-//   clone.querySelector("select").selectedIndex = 0;
-//   clone.querySelector("input").value = "";
-//   section.appendChild(clone);
-//   updateEventListeners();
-//   calculateTotal();
-// }
-
-// // Re-add event listeners for newly added elements
-// function updateEventListeners() {
-//   document
-//     .querySelectorAll(
-//       ".turkey-select, .turkey-quantity, .bacon-select, .bacon-quantity, .vegetable-select, .vegetable-quantity, .otherItems-select, .otherItems-quantity"
-//     )
-//     .forEach((element) => {
-//       element.removeEventListener("change", calculateTotal); // prevent duplicates
-//       element.addEventListener("change", calculateTotal);
-//     });
-// }
-
-// // Initial Event Listeners
-// updateEventListeners();
+      fetch(action, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          if (response.ok) {
+            alert("Form submitted successfully!");
+          } else {
+            alert(
+              "Failed to submit the form. Please tick box I am human and complete hCaptcha."
+            );
+          }
+        })
+        .catch((error) => {
+          alert("An error occurred. Please try again later.");
+          console.error("Error:", error);
+        });
+    });
+  }
+});
 
 // Simplified jQuery-based script for dynamic form and total price calculation
 $(document).ready(function () {

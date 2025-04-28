@@ -15,6 +15,11 @@
       rel="stylesheet"
     />
     <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
       href="https://fonts.googleapis.com/css?family=Wire+One|Raleway:300"
       rel="stylesheet"
       type="text/css"
@@ -99,7 +104,7 @@
             </p>
             <button
               type="button"
-              class="btn btn-outline-light mt-3 px-4 py-2 font-heading"
+              class="btn btn-outline-light mt-3 px-4 py-2 font-heading animate__animated animate__heartBeat animate__delay-3s animate__repeat-2"
               onclick="window.location.href = 'order_form.html';"
             >
               Order Your Turkey Today
@@ -118,7 +123,12 @@
         class="row row-cols-1 row-cols-lg-2 row-cols-xl-4 w-card-responsive mx-auto g-5"
       >
         <!-- Card 1 -->
-        <div class="col">
+        <div
+          class="col"
+          data-aos="flip-left"
+          data-aos-easing="linear"
+          data-aos-delay="200"
+        >
           <div
             class="card bg-primary text-white h-100 font-text align-items-center border border-0 rounded-0 shadow px-4 py-5"
           >
@@ -144,7 +154,12 @@
           </div>
         </div>
         <!-- Card 2 -->
-        <div class="col">
+        <div
+          class="col"
+          data-aos="flip-left"
+          data-aos-easing="linear"
+          data-aos-delay="900"
+        >
           <div
             class="card bg-primary text-white h-100 font-text align-items-center border border-0 rounded-0 shadow px-4 py-5"
           >
@@ -168,7 +183,12 @@
           </div>
         </div>
         <!-- Card 3 -->
-        <div class="col">
+        <div
+          class="col"
+          data-aos="flip-left"
+          data-aos-easing="linear"
+          data-aos-delay="1700"
+        >
           <div
             class="card bg-primary text-white h-100 font-text align-items-center border border-0 rounded-0 shadow px-4 py-5"
           >
@@ -192,7 +212,12 @@
           </div>
         </div>
         <!-- Card 4 -->
-        <div class="col">
+        <div
+          class="col"
+          data-aos="flip-left"
+          data-aos-easing="linear"
+          data-aos-delay="2500"
+        >
           <div
             class="card bg-primary text-white h-100 font-text align-items-center border border-0 rounded-0 shadow px-4 py-5"
           >
@@ -585,6 +610,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/script.js"></script>
+    <script>
+      AOS.init();
+    </script>
   </body>
 </html>
