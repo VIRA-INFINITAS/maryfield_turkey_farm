@@ -129,14 +129,13 @@ p {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-.btn-gold,
-.btn-gold:focus,
-.btn-gold:active,
-.btn-gold:visited,
-.btn-gold:hover {
-  background-color: var(--bs-tertiary) !important;
+.btn-white,
+.btn-white:focus,
+.btn-white:active,
+.btn-white:visited,
+.btn-white:hover {
+  background-color: var(--bs-white) !important;
   color: var(--bs-secondary) !important;
-  border-color: var(--bs-tertiary) !important;
 }
 
 @media (max-width: 991.98px) {
@@ -381,7 +380,7 @@ p {
   background: url("../img/roasted_turkey_promo.jpg") no-repeat center center;
   background-size: cover;
   position: relative;
-  height: 50vh;
+  height: 55vh;
   color: var(--bs-white);
 }
 
