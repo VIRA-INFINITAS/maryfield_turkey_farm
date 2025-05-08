@@ -312,6 +312,7 @@ p {
 @media (min-width: 992px) {
   #our_turkeys {
     background-attachment: fixed;
+    background-size: cover;
   }
 }
 
