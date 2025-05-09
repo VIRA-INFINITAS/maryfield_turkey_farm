@@ -10,6 +10,10 @@ p {
   font-size: 18px;
 }
 
+li {
+  font-size: 18px;
+}
+
 :root {
   --bs-primary: #9a8058;
   --bs-secondary: #51381f;
@@ -83,6 +87,10 @@ p {
 /* NAVIGATION STYLES */
 .navbar {
   transition: transform 0.4s ease, background-color 1s ease;
+}
+
+.navbar a {
+  font-size: 20px;
 }
 
 .logo-navbar img {
