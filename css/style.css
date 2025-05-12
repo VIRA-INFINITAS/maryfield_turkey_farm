@@ -287,6 +287,12 @@ li {
   );
 }
 
+/* Where to Buy page - Local Farm Shops and Butchers Section */
+.responsive-map {
+  width: 100%;
+  height: 450px;
+}
+
 /* Our Turkey page - Divider styles */
 /* SKEW CLOCKWISE */
 .skew-c {
