@@ -114,7 +114,7 @@ $(document).ready(function () {
     const $clone = $section.children().first().clone();
     //remove values from copied element
     $clone.find("select").prop("selectedIndex", 0);
-    $clone.find("input").val("");
+    $clone.find("input").val("1");
     //append the copied element to the section
     $section.append($clone);
     //update the event listeners for the new element
