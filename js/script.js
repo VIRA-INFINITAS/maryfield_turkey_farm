@@ -39,114 +39,292 @@ $(function () {
   });
 });
 
-//THIS SCRIPT WILL PREVENT FORMS TO BE SUBMITTED IF hCAPTCHA IN NOT COMPLETED. IT WILL SHOW AN ALERT FOR USER TO COMPLETE IT.
-//create a variable and choose all forms with ID 'contactForm' or 'orderForm'
-const forms = ["contactForm", "orderForm"];
-//for each form with ID 'contactForm' or 'orderForm'
-forms.forEach((formId) => {
-  //create a variable and choose the form with ID 'contactForm' or 'orderForm'
-  const form = document.getElementById(formId);
-  if (form) {
-    //when the form is submitted, prevent the default action and show an alert if hCaptcha is not completed
-    form.addEventListener("submit", function (event) {
-      //block the default action of the form
-      event.preventDefault();
-      //create a variable and store data from the form
-      const formData = new FormData(form);
-      //create a variable and store URL, where the form will be submitted
-      const action = form.action;
-      //send date to the server using fetch API
-      fetch(action, {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => {
-          if (response.ok) {
-            //if the response is ok, show alert - Form was submitted successfully
-            alert("Form submitted successfully!");
-          } else {
-            //if the response is not ok, show alert - Failed to submit the form. Please tick box I am human and complete hCaptcha.
-            alert(
-              "Failed to submit the form. Please tick box I am human and complete hCaptcha."
-            );
-          }
-        })
-        .catch((error) => {
-          //if there is an error, show alert - An error occurred. Please try again later.
-          alert("An error occurred. Please try again later.");
-          //log the error to the console
-          console.error("Error:", error);
-        });
-    });
-  }
-});
+/* =========================================================
+   ORDER FORM LOGIC (qty & total)
+   - Qty is 0 when placeholder (value === "")
+   - Auto-sets to 1 when a valid product is selected (only if it was 0)
+   - Returns to 0 when user chooses the placeholder back
+   ========================================================= */
+const OrderForm = (function ($) {
+  const GROUP_SELECTOR =
+    ".turkey-group, .bacon-group, .vegetable-group, .otherItems-group";
+  const SELECT_SELECTOR =
+    ".turkey-select, .bacon-select, .vegetable-select, .otherItems-select";
+  const QTY_SELECTOR =
+    ".turkey-quantity, .bacon-quantity, .vegetable-quantity, .otherItems-quantity";
 
-//THIS SCRIPT WILL CALCULATE THE TOTAL PRICE FOR THE ORDER AND ADD NEW FORM SECTIONS FOR ITEMS
-//after the page is fully loaded, start this function
-$(document).ready(function () {
-  //function to calculate the total price
   function calculateTotal() {
     let total = 0;
-    //loop through each group of items and calculate the total price
-    $(".turkey-group, .bacon-group, .vegetable-group, .otherItems-group").each(
-      function () {
-        //find and store the selected item
-        const select = $(this).find("select")[0];
-        //find and store the quantity, if no value is entered, set it to 0
-        const quantity = parseInt($(this).find("input").val()) || 0;
-        //get and store the price from date attribute of the selected item
-        const price =
-          parseFloat(select?.selectedOptions[0]?.dataset.price) || 0;
-        //calculate the total price for this item and add it to the total
-        total += quantity * price;
+
+    $(GROUP_SELECTOR).each(function () {
+      const select = $(this).find("select")[0];
+      const qty = Math.max(0, parseInt($(this).find("input").val(), 10) || 0);
+
+      let price = 0;
+      if (select && select.selectedOptions && select.selectedOptions[0]) {
+        const opt = select.selectedOptions[0];
+        if (opt.value !== "") {
+          price = parseFloat(opt.dataset.price || "0") || 0;
+        }
       }
-    );
-    //update and show the total price in the text and hidden input
+      total += qty * price;
+    });
+
     $("#totalPrice").text(total.toFixed(2));
     $("#totalPriceInput").val(total.toFixed(2));
   }
 
-  //function to clone a section and append it to the order form
+  function initQuantities() {
+    $(GROUP_SELECTOR).each(function () {
+      const select = $(this).find("select")[0];
+      const $qty = $(this).find("input[type='number']");
+      const current = parseInt($qty.val(), 10) || 0;
+
+      if (!select || select.value === "") {
+        $qty.val("0");
+      } else if (current === 0) {
+        $qty.val("1");
+      }
+    });
+  }
+
   function cloneAndAppend(sectionId) {
-    //store the section ID
     const $section = $(sectionId);
-    //copy the first element
-    const $clone = $section.children().first().clone();
-    //remove values from copied element
-    $clone.find("select").prop("selectedIndex", 0);
-    $clone.find("input").val("1");
-    //append the copied element to the section
+    const $firstRow = $section.children().first();
+    if (!$firstRow.length) return;
+
+    const $clone = $firstRow.clone();
+    $clone.find("select").each(function () {
+      this.value = "";
+    });
+    $clone.find("input[type='number']").val("0");
     $section.append($clone);
-    //update the event listeners for the new element
-    updateEventListeners();
-    //recalculate the total price
+
     calculateTotal();
   }
 
-  //when user clicks on the button to add a new item, clone the section and append it to the order form
-  $("#orderForm").on("click", ".add-turkey", function () {
-    cloneAndAppend("#turkeySection");
-  });
-  $("#orderForm").on("click", ".add-bacon", function () {
-    cloneAndAppend("#baconSection");
-  });
-  $("#orderForm").on("click", ".add-vegetable", function () {
-    cloneAndAppend("#vegetableSection");
-  });
-  $("#orderForm").on("click", ".add-otherItems", function () {
-    cloneAndAppend("#otherItemsSection");
-  });
+  function bindEvents() {
+    const $form = $("#orderForm");
 
-  //update event listeners for new select and input elements
-  function updateEventListeners() {
-    $(
-      ".turkey-select, .turkey-quantity, .bacon-select, .bacon-quantity, .vegetable-select, .vegetable-quantity, .otherItems-select, .otherItems-quantity"
-    )
-      //remove previous event listeners to avoid duplicates
-      .off("change")
-      //add event listener to the select and input elements and call the calculateTotal function when the value changes
-      .on("change", calculateTotal);
+    $form.on("change", SELECT_SELECTOR, function () {
+      const $group = $(this).closest(GROUP_SELECTOR);
+      const $qty = $group.find("input[type='number']");
+      const isValid = this.value !== "";
+
+      if (isValid) {
+        const current = parseInt($qty.val(), 10) || 0;
+        if (current === 0) $qty.val("1");
+      } else {
+        $qty.val("0");
+      }
+      calculateTotal();
+    });
+
+    $form.on("input change", QTY_SELECTOR, function () {
+      const v = Math.max(0, parseInt($(this).val(), 10) || 0);
+      $(this).val(v);
+      calculateTotal();
+    });
+
+    $form.on("click", ".add-turkey", function () {
+      cloneAndAppend("#turkeySection");
+    });
+    $form.on("click", ".add-bacon", function () {
+      cloneAndAppend("#baconSection");
+    });
+    $form.on("click", ".add-vegetable", function () {
+      cloneAndAppend("#vegetableSection");
+    });
+    $form.on("click", ".add-otherItems", function () {
+      cloneAndAppend("#otherItemsSection");
+    });
   }
-  //call the function to update event listeners when the page is loaded
-  updateEventListeners();
+
+  /* ---------------------------------------------------------
+     Build one hidden payload in the exact email order you want:
+     1) Order_summary (multiline)
+     2) Total_price
+     3) First_name, Last_name, Address_line1, Address_line2, City,
+        Postcode, Email, Phone, Order_type, Message
+     To avoid duplicates, temporarily remove name attributes
+     from all original fields (except apikey / hcaptcha).
+     Names are restored after submit completes.
+  --------------------------------------------------------- */
+  function buildEmailPayloadDesiredOrder() {
+    const form = document.getElementById("orderForm");
+    if (!form) return;
+
+    // Remove any previously generated dynamic nodes
+    form.querySelectorAll('[data-dynamic="true"]').forEach((n) => n.remove());
+
+    // Container inserted at the very top of the form (DOM order defines email order)
+    const container = document.createElement("div");
+    container.setAttribute("data-dynamic", "true");
+    form.insertBefore(container, form.firstChild);
+
+    // Helpers
+    const addHidden = (name, value) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = name;
+      input.value = value;
+      input.setAttribute("data-dynamic", "true");
+      container.appendChild(input);
+    };
+    const addHiddenTextarea = (name, value) => {
+      const ta = document.createElement("textarea");
+      ta.name = name;
+      ta.value = value;
+      ta.style.display = "none";
+      ta.setAttribute("data-dynamic", "true");
+      container.appendChild(ta);
+    };
+
+    // Build multiline Order_summary
+    const currency = "£";
+    const lines = [];
+
+    const processSection = (rowSelector, label) => {
+      let idx = 1;
+      document.querySelectorAll(rowSelector).forEach((row) => {
+        const sel = row.querySelector("select");
+        const qtyInput = row.querySelector('input[type="number"]');
+        if (!sel || !qtyInput) return;
+
+        const value = sel.value || "";
+        const qty = Math.max(0, parseInt(qtyInput.value, 10) || 0);
+        if (value === "" || qty === 0) return;
+
+        const opt = sel.selectedOptions[0];
+        const price = parseFloat(opt?.dataset?.price || "0") || 0;
+        const subtotal = (qty * price).toFixed(2);
+
+        // NEW format: without Unit, with blank line after each item
+        lines.push(
+          `${label} ${idx}: ${value} — Qty: ${qty} — Subtotal: ${currency}${subtotal}`,
+          "" // blank line for spacing
+        );
+        idx++;
+      });
+    };
+
+    processSection(".turkey-group", "Turkey");
+    processSection(".bacon-group", "Bacon");
+    processSection(".vegetable-group", "Vegetables");
+    processSection(".otherItems-group", "Other");
+
+    // Remove last extra blank line if exists
+    if (lines.length && lines[lines.length - 1] === "") lines.pop();
+
+    const summaryText = lines.length ? lines.join("\n") : "No items selected.";
+    addHiddenTextarea("Order_summary", summaryText);
+
+    // 2) Total_price (use the calculated hidden input if present)
+    const totalInput = document.getElementById("totalPriceInput");
+    const totalValue =
+      (totalInput && totalInput.value) ||
+      (document.getElementById("totalPrice")?.textContent ?? "0.00");
+    addHidden("Total_price", totalValue);
+
+    // 3) Contact details in exact order
+    const val = (id) => document.getElementById(id)?.value || "";
+    addHidden("First_name", val("firstName"));
+    addHidden("Last_name", val("lastName"));
+    addHidden("Address_line1", val("address1"));
+    addHidden("Address_line2", val("address2"));
+    addHidden("City", val("city"));
+    addHidden("Postcode", val("postcode"));
+    addHidden("Email", val("email"));
+    addHidden("Phone", val("phone"));
+    addHidden("Order_type", val("orderType"));
+    addHidden("Message", val("message"));
+
+    // ---- Temporarily strip name attributes from original fields ----
+    // Keep only "apikey" and hcaptcha fields intact.
+    form
+      .querySelectorAll("input[name], select[name], textarea[name]")
+      .forEach((el) => {
+        const name = el.getAttribute("name");
+        if (!name) return;
+        if (el.hasAttribute("data-dynamic")) return; // our new fields
+        if (name === "apikey" || name === "h-captcha-response") return;
+
+        // store original name and remove it
+        el.setAttribute("data-name-original", name);
+        el.removeAttribute("name");
+      });
+  }
+
+  // Restore original names & remove dynamic fields (after submit finishes)
+  function cleanupEmailPayload() {
+    const form = document.getElementById("orderForm");
+    if (!form) return;
+
+    form.querySelectorAll("[data-name-original]").forEach((el) => {
+      el.setAttribute("name", el.getAttribute("data-name-original"));
+      el.removeAttribute("data-name-original");
+    });
+
+    form.querySelectorAll('[data-dynamic="true"]').forEach((n) => n.remove());
+  }
+
+  return {
+    calculateTotal,
+    initQuantities,
+    bindEvents,
+    buildEmailPayloadDesiredOrder,
+    cleanupEmailPayload,
+  };
+})(jQuery);
+
+/* =========================================================
+   Submit via Web3Forms (single handler)
+   - Build the email payload IN THE DESIRED ORDER
+   - Send
+   - Restore form to normal state afterwards
+   ========================================================= */
+(function () {
+  const orderForm = document.getElementById("orderForm");
+  if (!orderForm) return;
+
+  orderForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    // Build the bespoke ordered payload and strip original names
+    OrderForm.buildEmailPayloadDesiredOrder();
+
+    const formData = new FormData(orderForm);
+    const action = orderForm.action;
+
+    fetch(action, { method: "POST", body: formData })
+      .then((response) => {
+        // Always clean up names & dynamic fields afterwards
+        OrderForm.cleanupEmailPayload();
+
+        if (response.ok) {
+          alert("Form submitted successfully!");
+          orderForm.reset();
+          OrderForm.initQuantities();
+          OrderForm.calculateTotal();
+        } else {
+          alert(
+            "Failed to submit the form. Please tick 'I am human' and complete hCaptcha."
+          );
+        }
+      })
+      .catch((error) => {
+        OrderForm.cleanupEmailPayload();
+        alert("An error occurred. Please try again later.");
+        console.error("Error:", error);
+      });
+  });
+})();
+
+/* =========================================================
+   Boot on ready
+   ========================================================= */
+jQuery(function () {
+  OrderForm.bindEvents();
+  OrderForm.initQuantities();
+  OrderForm.calculateTotal();
 });
